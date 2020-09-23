@@ -113,7 +113,6 @@ public class PersonFacade implements IPersonFacade {
             person.setLastName(p.getlName());
             person.setPhone(p.getPhone());
             person.setLastEdited(new Date());
-            em.persist(person);
             em.getTransaction().commit();
             return new PersonDTO(person);
         } finally {
