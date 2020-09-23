@@ -30,9 +30,21 @@ public class Tester {
         p1.addFee(f3);
         p2.addFee(f2);
 
+        SwimStyle s1 = new SwimStyle("Crawl");
+        SwimStyle s2 = new SwimStyle("ButterFly");
+        SwimStyle s3 = new SwimStyle("Breast Stroke");
+
+        p1.addSwimStyle(s1);
+        p1.addSwimStyle(s3);
+        p2.addSwimStyle(s2);
+
         em.getTransaction().begin();
-            em.persist(p1);
-            em.persist(p2);
+        em.persist(p1);
+        em.persist(p2);
+        em.getTransaction().commit();
+
+        em.getTransaction().begin();
+            p1.removeSwimStyle(s3);
         em.getTransaction().commit();
 
         System.out.println("p1: " + p1.getP_id() + ", " + p1.getName());
@@ -41,17 +53,17 @@ public class Tester {
         System.out.println("Jønkes gade: " + p1.getAddress().getStreet());
 
         System.out.println("Lad os se om to-vejs virker: " + a1.getPerson().getName());
-        
+
         System.out.println("Hvem har betalt f2? Det har: " + f2.getPerson().getName());
-        
+
         System.out.println("Hvad er der blevet betalt i alt?");
-        
+
         TypedQuery<Fee> q1 = em.createQuery("SELECT f FROM Fee f", Fee.class);
         List<Fee> fees = q1.getResultList();
-        
+
         for (Fee f : fees) {
-            System.out.println(f.getPerson().getName() + ": " + f.getAmount() + "kr. Den: "+ f.getPayDate() + " Adr: " + f.getPerson().getAddress().getCity());
+            System.out.println(f.getPerson().getName() + ": " + f.getAmount() + "kr. Den: " + f.getPayDate() + " Adr: " + f.getPerson().getAddress().getCity());
         }
-        
+
     }
 }

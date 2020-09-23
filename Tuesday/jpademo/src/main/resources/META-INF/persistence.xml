@@ -5,6 +5,7 @@
     <class>dat3.jpademo.entities.Person</class>
     <class>dat3.jpademo.entities.Address</class>
     <class>dat3.jpademo.entities.Fee</class>
+    <class>dat3.jpademo.entities.SwimStyle</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/startcode?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="dev"/>
