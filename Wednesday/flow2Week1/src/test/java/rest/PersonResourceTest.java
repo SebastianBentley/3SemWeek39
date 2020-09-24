@@ -18,6 +18,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.hamcrest.Matchers;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -143,7 +144,8 @@ public class PersonResourceTest {
                 .then()
                 .body("fName", equalTo("Imposter"))
                 .body("lName", equalTo("FromAddPerson"))
-                .body("phone", equalTo("0001"));
+                .body("phone", equalTo("0001"))
+                .body("id", notNullValue());
     }
 
     @Test
