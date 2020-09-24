@@ -3,6 +3,7 @@ package facades;
 import dto.PersonDTO;
 import dto.PersonsDTO;
 import entities.Person;
+import exceptions.PersonNotFoundException;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -67,10 +68,14 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public PersonDTO deletePerson(Long id) {
+    public PersonDTO deletePerson(Long id) throws PersonNotFoundException {
         EntityManager em = getEntityManager();
         try {
             Person person = em.find(Person.class, id);
+            if (person == null) {
+                throw new PersonNotFoundException("Could not delete, provided id does not exist");
+            }
+
             em.getTransaction().begin();
             em.remove(person);
             em.getTransaction().commit();
@@ -81,10 +86,13 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public PersonDTO getPerson(Long id) {
+    public PersonDTO getPerson(Long id) throws PersonNotFoundException {
         EntityManager em = getEntityManager();
         try {
             Person person = em.find(Person.class, id);
+            if (person == null) {
+                throw new PersonNotFoundException("No person with provided id found");
+            }
             return new PersonDTO(person);
         } finally {
             em.close();
