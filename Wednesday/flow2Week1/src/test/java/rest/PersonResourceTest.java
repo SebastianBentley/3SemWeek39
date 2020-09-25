@@ -138,7 +138,7 @@
 //    public void testAddPerson() {
 //        given()
 //                .contentType("application/json")
-//                .body(new PersonDTO("Imposter", "FromAddPerson", "0001"))
+//                .body(new PersonDTO("Imposter", "FromAddPerson", "0001", "testGade", "1234", "testby"))
 //                .when()
 //                .post("person")
 //                .then()

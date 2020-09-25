@@ -28,6 +28,17 @@ public class PersonDTO {
     public PersonDTO() {
     }
 
+    public PersonDTO(String fName, String lName, String phone, String street, String zip, String city) {
+        this.fName = fName;
+        this.lName = lName;
+        this.phone = phone;
+        this.street = street;
+        this.zip = zip;
+        this.city = city;
+    }
+
+    
+
     public String getStreet() {
         return street;
     }

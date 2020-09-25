@@ -85,7 +85,7 @@
 //
 //    @Test
 //    public void testAddPerson() throws MissingInputException {
-//        facade.addPerson("Imposter", "FromAddPerson", "0001");
+//        facade.addPerson("Imposter", "FromAddPerson", "0001", "testgade", "1234", "testby");
 //        assertEquals(3, facade.getPersonCount());
 //    }
 //
