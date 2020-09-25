@@ -13,8 +13,12 @@
 ## Thursday - Fully completed
 * **error-demo** folder contains small demo, following Lars tutorial on error handling 
 
+## Friday - Fully completed
+* **exam-prep-optional** folder contains project for optional exam-prep assignment.
+
 ## How far did I come?
 * All mandatory exercises are fully completed.
+* One optional assignment was completed, however, not sure if everything is correct.
   
 
 ### Editor used - Netbeans 12.0
