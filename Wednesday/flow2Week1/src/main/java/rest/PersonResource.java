@@ -60,33 +60,42 @@ public class PersonResource {
         PersonDTO pDTO = FACADE.getPerson(id);
         return GSON.toJson(pDTO);
     }
-    
+
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public String add(String person) throws MissingInputException{
+    public String add(String person) throws MissingInputException {
         PersonDTO p = GSON.fromJson(person, PersonDTO.class);
-        PersonDTO pAdded = FACADE.addPerson(p.getfName(), p.getlName(), p.getPhone());
+        PersonDTO pAdded = FACADE.addPerson(p.getfName(), p.getlName(), p.getPhone(), p.getStreet(), p.getZip(), p.getCity());
         return GSON.toJson(pAdded);
     }
-    
+
     @Path("{id}")
     @PUT
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public String editPerson(@PathParam("id") Long id, String person) throws MissingInputException, PersonNotFoundException{
+    public String editPerson(@PathParam("id") Long id, String person) throws MissingInputException, PersonNotFoundException {
         PersonDTO p = GSON.fromJson(person, PersonDTO.class);
         p.setId(id);
         PersonDTO pNew = FACADE.editPerson(p);
         return GSON.toJson(pNew);
     }
-    
+
     @Path("{id}")
     @DELETE
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public String deletePerson(@PathParam("id") Long id) throws PersonNotFoundException{
+    public String deletePerson(@PathParam("id") Long id) throws PersonNotFoundException {
         FACADE.deletePerson(id);
-        return "{\"Person removed\"}"; 
+        return "{\"Person removed\"}";
     }
+
+    @Path("populate")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String populate(){
+        FACADE.populate();
+        return "{\"msg\":\"Populated\"}";
+    }
+
 }
