@@ -10,12 +10,12 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class MissingInputExceptionMapper implements ExceptionMapper<MissingInputException> 
+public class MissingInputMapper implements ExceptionMapper<MissingInput> 
 {
     static Gson gson = new GsonBuilder().setPrettyPrinting().create();   
     @Override
-    public Response toResponse(MissingInputException ex) {
-       Logger.getLogger(PersonNotFoundExceptionMapper.class.getName())
+    public Response toResponse(MissingInput ex) {
+       Logger.getLogger(PersonNotFoundMapper.class.getName())
            .log(Level.SEVERE, null, ex);
        ExceptionDTO err = new ExceptionDTO(404,ex.getMessage());
        return Response

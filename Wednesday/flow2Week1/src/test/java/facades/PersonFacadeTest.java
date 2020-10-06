@@ -2,8 +2,8 @@ package facades;
 
 import dto.PersonDTO;
 import entities.Person;
-import exceptions.MissingInputException;
-import exceptions.PersonNotFoundException;
+import exceptions.MissingInput;
+import exceptions.PersonNotFound;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
@@ -78,26 +78,28 @@ public class PersonFacadeTest {
     }
 
     @Test
-    public void testGetPersonById() throws PersonNotFoundException {
+    public void testGetPersonById() throws PersonNotFound {
         PersonDTO person = facade.getPerson(p1.getId());
         assertEquals("Test", person.getfName());
     }
 
     @Test
-    public void testAddPerson() throws MissingInputException {
-        facade.addPerson("Imposter", "FromAddPerson", "0001");
+    public void testAddPerson() throws MissingInput {
+        Person p1 = new Person("Imposter", "FromAddPerson", "0001");
+        PersonDTO p = new PersonDTO(p1);
+        facade.addPerson(p);
         assertEquals(3, facade.getPersonCount());
     }
 
     @Test
-    public void testEditPerson() throws MissingInputException, PersonNotFoundException {
+    public void testEditPerson() throws MissingInput, PersonNotFound {
         p2.setLastName("ChangedMyName");
         PersonDTO p2New = facade.editPerson(new PersonDTO(p2));
         assertEquals(p2New.getlName(), p2.getLastName());
     }
 
     @Test
-    public void testDeletePerson() throws PersonNotFoundException {
+    public void testDeletePerson() throws PersonNotFound {
         EntityManager em = emf.createEntityManager();
         try {
             Person p = em.find(Person.class, p1.getId());

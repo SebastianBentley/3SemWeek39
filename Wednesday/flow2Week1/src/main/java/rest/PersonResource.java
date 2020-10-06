@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.PersonDTO;
 import dto.PersonsDTO;
-import exceptions.MissingInputException;
-import exceptions.PersonNotFoundException;
+import exceptions.MissingInput;
+import exceptions.PersonNotFound;
 import utils.EMF_Creator;
 import facades.PersonFacade;
 import javax.persistence.EntityManagerFactory;
@@ -56,7 +56,7 @@ public class PersonResource {
     @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getPersonById(@PathParam("id") Long id) throws PersonNotFoundException {
+    public String getPersonById(@PathParam("id") Long id) throws PersonNotFound {
         PersonDTO pDTO = FACADE.getPerson(id);
         return GSON.toJson(pDTO);
     }
@@ -64,9 +64,9 @@ public class PersonResource {
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public String add(String person) throws MissingInputException{
+    public String add(String person) throws MissingInput{
         PersonDTO p = GSON.fromJson(person, PersonDTO.class);
-        PersonDTO pAdded = FACADE.addPerson(p.getfName(), p.getlName(), p.getPhone());
+        PersonDTO pAdded = FACADE.addPerson(p);
         return GSON.toJson(pAdded);
     }
     
@@ -74,7 +74,7 @@ public class PersonResource {
     @PUT
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public String editPerson(@PathParam("id") Long id, String person) throws MissingInputException, PersonNotFoundException{
+    public String editPerson(@PathParam("id") Long id, String person) throws MissingInput, PersonNotFound{
         PersonDTO p = GSON.fromJson(person, PersonDTO.class);
         p.setId(id);
         PersonDTO pNew = FACADE.editPerson(p);
@@ -85,7 +85,7 @@ public class PersonResource {
     @DELETE
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public String deletePerson(@PathParam("id") Long id) throws PersonNotFoundException{
+    public String deletePerson(@PathParam("id") Long id) throws PersonNotFound{
         FACADE.deletePerson(id);
         return "{\"Person removed\"}"; 
     }
